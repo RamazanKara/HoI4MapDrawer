@@ -20,11 +20,6 @@ namespace ProvinceMapper
 
             // load settings
             tbSourceMapFolder.Text = Properties.Settings.Default.srcMapFolder;
-            tbSourceTag.Text = Properties.Settings.Default.srcTag;
-            tbMappingsFile.Text = Properties.Settings.Default.mappingFile;
-            cbScale.Checked = Properties.Settings.Default.fitMaps;
-            cbNamesFrom.SelectedItem = Properties.Settings.Default.namesFrom;
-            ckInvertSource.Checked = Properties.Settings.Default.invertSource;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -43,46 +38,16 @@ namespace ProvinceMapper
             Bitmap srcMap = (Bitmap)Bitmap.FromFile(sourceMapPath);
             PushStatusUpdate(33.0);
             PushStatusUpdate(67.0);
-            if (cbScale.Checked)
-            {
-                int h = srcMap.Height;
-                int w = srcMap.Width;
-                if (srcMap.Height < h || srcMap.Width < w)
-                {
-                    srcMap = Program.CleanResizeBitmap(srcMap, w, h);
-                }
-            }
             PushStatusUpdate(100.0);
             srcMap.Tag = sourceMapPath;
 
             // add geo data to province lists
             lblStatus.Text = "Load Source Map";
             Application.DoEvents();
-            Program.sourceMap = new MapReader(srcMap, Program.sourceDef.provinces, ckInvertSource.Checked, PushStatusUpdate);
-
-            // load localizations, if desired
-            if (cbNamesFrom.SelectedItem.ToString() == "Localization")
-            {
-                lblStatus.Text = "Load Source Localization";
-                Application.DoEvents();
-                LocalizationReader lr = new LocalizationReader(tbSourceMapFolder.Text, Program.sourceDef.provinces, PushStatusUpdate);
-            }
-
-            // read existing mappings (if any)
-            string mappingFile = tbMappingsFile.Text.Trim();
-            if (mappingFile != String.Empty && File.Exists(mappingFile))
-            {
-                lblStatus.Text = "Parse Existing Mappings";
-                Application.DoEvents();
-            }
+            Program.sourceMap = new MapReader(srcMap, Program.sourceDef.provinces, true, PushStatusUpdate);
 
             // save settings
             Properties.Settings.Default.srcMapFolder = tbSourceMapFolder.Text;
-            Properties.Settings.Default.srcTag = tbSourceTag.Text;
-            Properties.Settings.Default.mappingFile = tbMappingsFile.Text;
-            Properties.Settings.Default.fitMaps = cbScale.Checked;
-            Properties.Settings.Default.namesFrom = cbNamesFrom.SelectedItem.ToString();
-            Properties.Settings.Default.invertSource = ckInvertSource.Checked;
             Properties.Settings.Default.Save();
         }
 

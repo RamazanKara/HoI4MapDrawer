@@ -55,7 +55,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LocalizationReader.cs" />
     <Compile Include="Mapping.cs" />
     <Compile Include="DefinitionReader.cs" />
     <Compile Include="Form1.cs">
