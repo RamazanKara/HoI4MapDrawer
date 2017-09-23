@@ -30,8 +30,20 @@ namespace ProvinceMapper
                 srcChroma.Add(p.rgb.ToArgb(), p);
             }
 
-            // force rescale/redraw
-            cbZoom.SelectedIndex = 0;
+            if (pbSource.BackgroundImage != null)
+                pbSource.BackgroundImage.Dispose();
+            if (pbSource.Image != null)
+                pbSource.Image.Dispose();
+
+            pbSource.BackgroundImage = bmpSrc = Program.CleanResizeBitmap(Program.sourceMap.map,
+                (int)(Program.sourceMap.map.Width * scaleFactor), (int)(Program.sourceMap.map.Height * scaleFactor));
+            pbSource.Size = bmpSrc.Size;
+            pbSource.Image = new Bitmap(bmpSrc.Width, bmpSrc.Height);
+            Graphics g = Graphics.FromImage(pbSource.Image);
+            g.FillRectangle(Brushes.Transparent, new Rectangle(new Point(0, 0), bmpSrc.Size));
+            g.Flush();
+
+            createSelPBs(true);
         }
 
         private Point srcPt;
@@ -119,57 +131,6 @@ namespace ProvinceMapper
 
             if (!skipSelPBRedraw)
                 createSelPBs(false);
-        }
-
-        private void tbFitSelection_Click(object sender, EventArgs e)
-        {
-            if (srcSelection.Count > 0)
-            {
-                Rectangle srcFit = Program.ScaleRect(srcSelection[0].Rect, scaleFactor);
-                foreach (Province p in srcSelection)
-                {
-                    srcFit = Rectangle.Union(srcFit, Program.ScaleRect(p.Rect, scaleFactor));
-                }
-                Point fitCenter = new Point(srcFit.X + srcFit.Width / 2, srcFit.Y + srcFit.Height / 2);
-                //Point panelCenter = new Point(HorizontalSplit.Panel1.Width / 2, HorizontalSplit.Panel1.Height / 2);
-                //Point offset = new Point(fitCenter.X - panelCenter.X, fitCenter.Y - panelCenter.Y);
-                //HorizontalSplit.Panel1.AutoScrollPosition = offset;
-            }
-        }
-
-        private void tbUnmapped_Click(object sender, EventArgs e)
-        {
-            tbUnmapped.Checked = true;
-            tbSelection.Checked = false;
-            createSelPBs(true);
-        }
-
-        private void tbSelection_Click(object sender, EventArgs e)
-        {
-            tbSelection.Checked = true;
-            tbUnmapped.Checked = false;
-            createSelPBs(true);
-        }
-
-        private void cbZoom_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (cbZoom.SelectedItem != null)
-                scaleFactor = float.Parse(cbZoom.SelectedItem.ToString().TrimEnd('x'));
-
-            if (pbSource.BackgroundImage != null)
-                pbSource.BackgroundImage.Dispose();
-            if (pbSource.Image != null)
-                pbSource.Image.Dispose();
-
-            pbSource.BackgroundImage = bmpSrc = Program.CleanResizeBitmap(Program.sourceMap.map,
-                (int)(Program.sourceMap.map.Width * scaleFactor), (int)(Program.sourceMap.map.Height * scaleFactor));
-            pbSource.Size = bmpSrc.Size;
-            pbSource.Image = new Bitmap(bmpSrc.Width, bmpSrc.Height);
-            Graphics g = Graphics.FromImage(pbSource.Image);
-            g.FillRectangle(Brushes.Transparent, new Rectangle(new Point(0, 0), bmpSrc.Size));
-            g.Flush();
-
-            createSelPBs(true);
         }
     }
 }

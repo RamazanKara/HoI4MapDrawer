@@ -29,27 +29,17 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.VerticalSplit = new System.Windows.Forms.SplitContainer();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.tbSelection = new System.Windows.Forms.ToolStripButton();
-            this.tbUnmapped = new System.Windows.Forms.ToolStripButton();
-            this.tbFitSelection = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.cbZoom = new System.Windows.Forms.ToolStripComboBox();
-            this.pbSource = new System.Windows.Forms.PictureBox();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.StatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.pbSource = new System.Windows.Forms.PictureBox();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.VerticalSplit)).BeginInit();
             this.VerticalSplit.Panel1.SuspendLayout();
             this.VerticalSplit.Panel2.SuspendLayout();
             this.VerticalSplit.SuspendLayout();
-            this.toolStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbSource)).BeginInit();
             this.statusStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbSource)).BeginInit();
             this.SuspendLayout();
             // 
             // VerticalSplit
@@ -61,92 +51,30 @@
             // VerticalSplit.Panel1
             // 
             this.VerticalSplit.Panel1.Controls.Add(this.statusStrip1);
-            this.VerticalSplit.Panel1.Controls.Add(this.toolStrip1);
             // 
             // VerticalSplit.Panel2
             // 
+            this.VerticalSplit.Panel2.AutoScroll = true;
             this.VerticalSplit.Panel2.Controls.Add(this.pbSource);
             this.VerticalSplit.Size = new System.Drawing.Size(705, 467);
             this.VerticalSplit.SplitterDistance = 235;
             this.VerticalSplit.TabIndex = 0;
-            this.VerticalSplit.Panel2.AutoScroll = true;
             // 
-            // toolStrip1
+            // statusStrip1
             // 
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripSeparator1,
-            this.toolStripSeparator2,
-            this.tbSelection,
-            this.tbUnmapped,
-            this.tbFitSelection,
-            this.toolStripSeparator3,
-            this.cbZoom});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(235, 25);
-            this.toolStrip1.TabIndex = 1;
-            this.toolStrip1.Text = "toolStrip1";
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.StatusLabel});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 445);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(235, 22);
+            this.statusStrip1.TabIndex = 3;
+            this.statusStrip1.Text = "statusStrip1";
             // 
-            // toolStripSeparator1
+            // StatusLabel
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
-            // 
-            // tbSelection
-            // 
-            this.tbSelection.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tbSelection.Image = ((System.Drawing.Image)(resources.GetObject("tbSelection.Image")));
-            this.tbSelection.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tbSelection.Name = "tbSelection";
-            this.tbSelection.Size = new System.Drawing.Size(23, 22);
-            this.tbSelection.Text = "Selection Mode";
-            this.tbSelection.Click += new System.EventHandler(this.tbSelection_Click);
-            // 
-            // tbUnmapped
-            // 
-            this.tbUnmapped.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tbUnmapped.Image = ((System.Drawing.Image)(resources.GetObject("tbUnmapped.Image")));
-            this.tbUnmapped.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tbUnmapped.Name = "tbUnmapped";
-            this.tbUnmapped.Size = new System.Drawing.Size(23, 22);
-            this.tbUnmapped.Text = "Show Unmapped";
-            this.tbUnmapped.Click += new System.EventHandler(this.tbUnmapped_Click);
-            // 
-            // tbFitSelection
-            // 
-            this.tbFitSelection.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tbFitSelection.Image = ((System.Drawing.Image)(resources.GetObject("tbFitSelection.Image")));
-            this.tbFitSelection.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tbFitSelection.Name = "tbFitSelection";
-            this.tbFitSelection.Size = new System.Drawing.Size(23, 22);
-            this.tbFitSelection.Text = "Fit Selection";
-            this.tbFitSelection.Click += new System.EventHandler(this.tbFitSelection_Click);
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
-            // 
-            // cbZoom
-            // 
-            this.cbZoom.AutoSize = false;
-            this.cbZoom.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbZoom.DropDownWidth = 50;
-            this.cbZoom.Items.AddRange(new object[] {
-            "1x",
-            "2x",
-            "3x",
-            "4x",
-            "6x"});
-            this.cbZoom.Name = "cbZoom";
-            this.cbZoom.Size = new System.Drawing.Size(40, 23);
-            this.cbZoom.ToolTipText = "Zoom Factor";
-            this.cbZoom.SelectedIndexChanged += new System.EventHandler(this.cbZoom_SelectedIndexChanged);
+            this.StatusLabel.Name = "StatusLabel";
+            this.StatusLabel.Size = new System.Drawing.Size(118, 17);
+            this.StatusLabel.Text = "toolStripStatusLabel1";
             // 
             // pbSource
             // 
@@ -168,22 +96,6 @@
             this.toolTip1.UseAnimation = false;
             this.toolTip1.UseFading = false;
             // 
-            // statusStrip1
-            // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.StatusLabel});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 445);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(235, 22);
-            this.statusStrip1.TabIndex = 3;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
-            // StatusLabel
-            // 
-            this.StatusLabel.Name = "StatusLabel";
-            this.StatusLabel.Size = new System.Drawing.Size(118, 17);
-            this.StatusLabel.Text = "toolStripStatusLabel1";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -199,11 +111,9 @@
             this.VerticalSplit.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.VerticalSplit)).EndInit();
             this.VerticalSplit.ResumeLayout(false);
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbSource)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -212,16 +122,7 @@
 
         private System.Windows.Forms.SplitContainer VerticalSplit;
         private System.Windows.Forms.PictureBox pbSource;
-        private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.ToolStripButton tbSelection;
-        private System.Windows.Forms.ToolStripButton tbUnmapped;
         private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.ToolStripButton tbFitSelection;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-        private System.Windows.Forms.ToolStripComboBox cbZoom;
-        //private System.Windows.Forms.TabControl mappingsTabs;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel StatusLabel;
     }
