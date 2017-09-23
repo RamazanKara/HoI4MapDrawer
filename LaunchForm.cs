@@ -97,12 +97,6 @@ namespace ProvinceMapper
             {
                 lblStatus.Text = "Parse Existing Mappings";
                 Application.DoEvents();
-                Program.mappings = new MappingReader(mappingFile, tbSourceTag.Text,
-                    tbDestTag.Text, Program.sourceDef.provinces, Program.targetDef.provinces, PushStatusUpdate);
-            }
-            else
-            {
-                Program.mappings = new MappingReader(mappingFile, tbSourceTag.Text, tbDestTag.Text);
             }
 
             // save settings

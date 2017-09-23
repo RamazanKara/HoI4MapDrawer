@@ -31,12 +31,8 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.VerticalSplit = new System.Windows.Forms.SplitContainer();
-            this.mappingsTabs = new System.Windows.Forms.TabControl();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.tbSave = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.tbMoveUp = new System.Windows.Forms.ToolStripButton();
-            this.tbMoveDown = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.tbSelection = new System.Windows.Forms.ToolStripButton();
             this.tbUnmapped = new System.Windows.Forms.ToolStripButton();
@@ -72,7 +68,6 @@
             // VerticalSplit.Panel1
             // 
             this.VerticalSplit.Panel1.Controls.Add(this.statusStrip1);
-            this.VerticalSplit.Panel1.Controls.Add(this.mappingsTabs);
             this.VerticalSplit.Panel1.Controls.Add(this.toolStrip1);
             // 
             // VerticalSplit.Panel2
@@ -82,22 +77,10 @@
             this.VerticalSplit.SplitterDistance = 235;
             this.VerticalSplit.TabIndex = 0;
             // 
-            // mappingsTabs
-            // 
-            this.mappingsTabs.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mappingsTabs.Location = new System.Drawing.Point(0, 25);
-            this.mappingsTabs.Name = "mappingsTabs";
-            this.mappingsTabs.SelectedIndex = 0;
-            this.mappingsTabs.Size = new System.Drawing.Size(235, 442);
-            this.mappingsTabs.TabIndex = 2;
-            // 
             // toolStrip1
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tbSave,
             this.toolStripSeparator1,
-            this.tbMoveUp,
-            this.tbMoveDown,
             this.toolStripSeparator2,
             this.tbSelection,
             this.tbUnmapped,
@@ -110,40 +93,10 @@
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
-            // tbSave
-            // 
-            this.tbSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tbSave.Image = ((System.Drawing.Image)(resources.GetObject("tbSave.Image")));
-            this.tbSave.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tbSave.Name = "tbSave";
-            this.tbSave.Size = new System.Drawing.Size(23, 22);
-            this.tbSave.Text = "Save Mappings";
-            this.tbSave.Click += new System.EventHandler(this.tbSave_Click);
-            // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
-            // 
-            // tbMoveUp
-            // 
-            this.tbMoveUp.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tbMoveUp.Image = ((System.Drawing.Image)(resources.GetObject("tbMoveUp.Image")));
-            this.tbMoveUp.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tbMoveUp.Name = "tbMoveUp";
-            this.tbMoveUp.Size = new System.Drawing.Size(23, 22);
-            this.tbMoveUp.Text = "Move Up";
-            this.tbMoveUp.Click += new System.EventHandler(this.tbMoveUp_Click);
-            // 
-            // tbMoveDown
-            // 
-            this.tbMoveDown.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tbMoveDown.Image = ((System.Drawing.Image)(resources.GetObject("tbMoveDown.Image")));
-            this.tbMoveDown.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tbMoveDown.Name = "tbMoveDown";
-            this.tbMoveDown.Size = new System.Drawing.Size(23, 22);
-            this.tbMoveDown.Text = "Move Down";
-            this.tbMoveDown.Click += new System.EventHandler(this.tbMoveDown_Click);
             // 
             // toolStripSeparator2
             // 
@@ -231,7 +184,6 @@
             this.pbSource.TabStop = false;
             this.pbSource.MouseLeave += new System.EventHandler(this.pbSource_MouseLeave);
             this.pbSource.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbSource_MouseMove);
-            this.pbSource.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pbSource_MouseUp);
             // 
             // pbTarget
             // 
@@ -243,7 +195,6 @@
             this.pbTarget.TabStop = false;
             this.pbTarget.MouseLeave += new System.EventHandler(this.pbTarget_MouseLeave);
             this.pbTarget.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbTarget_MouseMove);
-            this.pbTarget.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pbTarget_MouseUp);
             // 
             // toolTip1
             // 
@@ -280,7 +231,6 @@
             this.Name = "Form1";
             this.Text = "Province Mapper";
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.VerticalSplit.Panel1.ResumeLayout(false);
             this.VerticalSplit.Panel1.PerformLayout();
             this.VerticalSplit.Panel2.ResumeLayout(false);
@@ -311,14 +261,11 @@
         private System.Windows.Forms.ToolStripButton tbUnmapped;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.ToolStripButton tbFitSelection;
-        private System.Windows.Forms.ToolStripButton tbSave;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripButton tbMoveUp;
-        private System.Windows.Forms.ToolStripButton tbMoveDown;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripComboBox cbZoom;
-        private System.Windows.Forms.TabControl mappingsTabs;
+        //private System.Windows.Forms.TabControl mappingsTabs;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel StatusLabel;
     }

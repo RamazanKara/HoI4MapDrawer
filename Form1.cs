@@ -24,8 +24,6 @@ namespace ProvinceMapper
 
         private float scaleFactor = 1.0f;
 
-        private Dictionary<string, System.Windows.Forms.ListBox> lbMappingsDict;
-
         private void Form1_Load(object sender, EventArgs e)
         {
             srcChroma = new SortedList<int, Province>();
@@ -42,38 +40,6 @@ namespace ProvinceMapper
 
             // force rescale/redraw
             cbZoom.SelectedIndex = 0;
-
-            // get the different mapping listings
-            lbMappingsDict = new Dictionary<string, System.Windows.Forms.ListBox>();
-            foreach (KeyValuePair<string, List<Mapping>> oneMapping in Program.mappings.mappings)
-            {
-                mappingsTabs.TabPages.Add(oneMapping.Key);
-                System.Windows.Forms.ListBox newListBox = new System.Windows.Forms.ListBox();
-                newListBox.Dock = DockStyle.Fill;
-                newListBox.SelectedIndexChanged += new System.EventHandler(this.lbMappings_SelectedIndexChanged);
-
-                newListBox.Items.AddRange(oneMapping.Value.ToArray());
-                newListBox.Items.Add(newMappingItem);
-                newListBox.Items.Add(newCommentItem);
-
-                mappingsTabs.TabPages[mappingsTabs.TabPages.Count - 1].Controls.Add(newListBox);
-                lbMappingsDict.Add(oneMapping.Key, newListBox);
-            }
-            if (mappingsTabs.TabCount == 0)
-            {
-                mappingsTabs.TabPages.Add("mappings");
-                System.Windows.Forms.ListBox newListBox = new System.Windows.Forms.ListBox();
-                newListBox.Dock = DockStyle.Fill;
-                newListBox.SelectedIndexChanged += new System.EventHandler(this.lbMappings_SelectedIndexChanged);
-
-                newListBox.Items.Add(newMappingItem);
-                newListBox.Items.Add(newCommentItem);
-
-                List<Mapping> oneMapping = new List<Mapping>();
-                Program.mappings.mappings.Add("mappings", oneMapping);
-                mappingsTabs.TabPages[mappingsTabs.TabPages.Count - 1].Controls.Add(newListBox);
-                lbMappingsDict.Add("mappings", newListBox);
-            }
         }
 
         private Point srcPt;
@@ -112,89 +78,9 @@ namespace ProvinceMapper
 
         private List<Province> oldSrcSelection = new List<Province>();
         private List<Province> srcSelection = new List<Province>();
-        private void pbSource_MouseUp(object sender, MouseEventArgs e)
-        {
-            Color c = bmpSrc.GetPixel(srcPt.X, srcPt.Y);
-            Province p = null;
-            if (srcChroma.TryGetValue(c.ToArgb(), out p))
-            {
-                ProvinceMapping m = lbMappingsDict[mappingsTabs.SelectedTab.Text].SelectedItem as ProvinceMapping;
-                if ((p.mappings.ContainsKey(mappingsTabs.SelectedTab.Text)) && (p.mappings[mappingsTabs.SelectedTab.Text] != m))
-                {
-                    // the province is mapped, but not to the current mapping;
-                    // switch to this province's mapping
-                    skipSelPBRedraw = true;
-                    lbMappingsDict[mappingsTabs.SelectedTab.Text].SelectedItem = p.mappings[mappingsTabs.SelectedTab.Text];
-                    skipSelPBRedraw = false;
-                    createSelPBs(false);
-                }
-                else
-                {
-                    // the province is mapped to the current mapping, or is unmapped
-                    // alter this mapping for the province
-                    if (m != null)
-                    {
-                        if (m.srcProvs.Contains(p))
-                        {
-                            m.srcProvs.Remove(p);
-                            p.mappings.Remove(mappingsTabs.SelectedTab.Text);
-                        }
-                        else
-                        {
-                            m.srcProvs.Add(p);
-                            p.mappings.Add(mappingsTabs.SelectedTab.Text, m);
-                        }
-                        skipSelPBRedraw = true;
-                        lbMappingsDict[mappingsTabs.SelectedTab.Text].Items[lbMappingsDict[mappingsTabs.SelectedTab.Text].SelectedIndex] = m;
-                        skipSelPBRedraw = false;
-                        createSelPBs(false);
-                    }
-                }
-            }
-        }
 
         private List<Province> oldDestSelection = new List<Province>();
         private List<Province> destSelection = new List<Province>();
-        private void pbTarget_MouseUp(object sender, MouseEventArgs e)
-        {
-            Color c = bmpDest.GetPixel(destPt.X, destPt.Y);
-            Province p = null;
-            if (destChroma.TryGetValue(c.ToArgb(), out p))
-            {
-                ProvinceMapping m = lbMappingsDict[mappingsTabs.SelectedTab.Text].SelectedItem as ProvinceMapping;
-                if ((p.mappings.ContainsKey(mappingsTabs.SelectedTab.Text)) && (p.mappings[mappingsTabs.SelectedTab.Text] != m))
-                {
-                    // the province is mapped, but not to the current mapping;
-                    // switch to this province's mapping
-                    skipSelPBRedraw = true;
-                    lbMappingsDict[mappingsTabs.SelectedTab.Text].SelectedItem = p.mappings[mappingsTabs.SelectedTab.Text];
-                    skipSelPBRedraw = false;
-                    createSelPBs(false);
-                }
-                else
-                {
-                    // the province is mapped to the current mapping, or is unmapped
-                    // alter this mapping for the province
-                    if (m != null)
-                    {
-                        if (m.destProvs.Contains(p))
-                        {
-                            m.destProvs.Remove(p);
-                            p.mappings.Remove(mappingsTabs.SelectedTab.Text);
-                        }
-                        else
-                        {
-                            m.destProvs.Add(p);
-                            p.mappings.Add(mappingsTabs.SelectedTab.Text, m);
-                        }
-                        skipSelPBRedraw = true;
-                        lbMappingsDict[mappingsTabs.SelectedTab.Text].Items[lbMappingsDict[mappingsTabs.SelectedTab.Text].SelectedIndex] = m;
-                        skipSelPBRedraw = false;
-                        createSelPBs(false);
-                    }
-                }
-            }
-        }
 
         private void pbSource_MouseLeave(object sender, EventArgs e)
         {
@@ -248,18 +134,6 @@ namespace ProvinceMapper
                 g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
                 g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
 
-                if (MaskMapped)
-                {
-                    foreach (Province p in provinces)
-                    {
-                        Rectangle scaledRect = Program.ScaleRect(p.Rect, scaleFactor);
-                        if ((p.mappings.ContainsKey(mappingsTabs.SelectedTab.Text)) && (Rectangle.Intersect(scaledRect, invalidRect) != Rectangle.Empty))
-                        {
-                            g.DrawImage(p.BlackMask, scaledRect);
-                        }
-                    }
-                }
-
                 foreach (Province p in newSelection)
                 {
                     Rectangle scaledRect = Program.ScaleRect(p.Rect, scaleFactor);
@@ -273,54 +147,14 @@ namespace ProvinceMapper
             }
         }
 
-        private String newMappingItem = "-- <Create New Mapping> --";
-        private String newCommentItem = "-- <Create New Comment> --";
         private bool skipSelPBRedraw = false;
         private void lbMappings_SelectedIndexChanged(object sender, EventArgs e)
         {
             srcSelection.Clear();
             destSelection.Clear();
 
-            if (lbMappingsDict[mappingsTabs.SelectedTab.Text].SelectedItem == (Object)newMappingItem) // reference test!
-            {
-                CreateNewMapping(false, lbMappingsDict[mappingsTabs.SelectedTab.Text].Items.Count - 2);
-            }
-            else if (lbMappingsDict[mappingsTabs.SelectedTab.Text].SelectedItem == (Object)newCommentItem) // reference test!
-            {
-                CreateNewMapping(true, lbMappingsDict[mappingsTabs.SelectedTab.Text].Items.Count - 2);
-            }
-            else
-            {
-                ProvinceMapping m = lbMappingsDict[mappingsTabs.SelectedTab.Text].SelectedItem as ProvinceMapping;
-                if (m != null)
-                {
-                    srcSelection.AddRange(m.srcProvs);
-                    destSelection.AddRange(m.destProvs);
-                }
-            }
-
             if (!skipSelPBRedraw)
                 createSelPBs(false);
-        }
-
-        private void CreateNewMapping(bool comment, int location)
-        {
-            Mapping m = null;
-            if (comment)
-            {
-                CommentMapping cm = new CommentMapping();
-                CommentForm cf = new CommentForm();
-                cf.SetComment(cm);
-                cf.ShowDialog();
-                m = cm;
-            }
-            else // province map
-            {
-                m = new ProvinceMapping();
-            }
-            Program.mappings.mappings[mappingsTabs.SelectedTab.Text].Insert(location, m);
-            lbMappingsDict[mappingsTabs.SelectedTab.Text].Items.Insert(location, m);
-            lbMappingsDict[mappingsTabs.SelectedTab.Text].SelectedItem = m;
         }
 
         private void tbFitSelection_Click(object sender, EventArgs e)
@@ -352,45 +186,10 @@ namespace ProvinceMapper
             }
         }
 
-        private void tbSave_Click(object sender, EventArgs e)
-        {
-            Program.mappings.Write();
-        }
-
-        private void tbMoveUp_Click(object sender, EventArgs e)
-        {
-            Mapping m = lbMappingsDict[mappingsTabs.SelectedTab.Text].SelectedItem as Mapping;
-            int idx = Program.mappings.mappings[mappingsTabs.SelectedTab.Text].IndexOf(m);
-            if (idx > 0)
-            {
-                Program.mappings.mappings[mappingsTabs.SelectedTab.Text][idx] = Program.mappings.mappings[mappingsTabs.SelectedTab.Text][idx - 1];
-                Program.mappings.mappings[mappingsTabs.SelectedTab.Text][idx - 1] = m;
-                lbMappingsDict[mappingsTabs.SelectedTab.Text].Items[idx] = Program.mappings.mappings[mappingsTabs.SelectedTab.Text][idx];
-                lbMappingsDict[mappingsTabs.SelectedTab.Text].Items[idx - 1] = Program.mappings.mappings[mappingsTabs.SelectedTab.Text][idx - 1];
-                lbMappingsDict[mappingsTabs.SelectedTab.Text].SelectedItem = m;
-            }
-        }
-
-        private void tbMoveDown_Click(object sender, EventArgs e)
-        {
-            Mapping m = lbMappingsDict[mappingsTabs.SelectedTab.Text].SelectedItem as Mapping;
-            int idx = Program.mappings.mappings[mappingsTabs.SelectedTab.Text].IndexOf(m);
-            if (idx < Program.mappings.mappings[mappingsTabs.SelectedTab.Text].Count - 1)
-            {
-                Program.mappings.mappings[mappingsTabs.SelectedTab.Text][idx] = Program.mappings.mappings[mappingsTabs.SelectedTab.Text][idx + 1];
-                Program.mappings.mappings[mappingsTabs.SelectedTab.Text][idx + 1] = m;
-                lbMappingsDict[mappingsTabs.SelectedTab.Text].Items[idx] = Program.mappings.mappings[mappingsTabs.SelectedTab.Text][idx];
-                lbMappingsDict[mappingsTabs.SelectedTab.Text].Items[idx + 1] = Program.mappings.mappings[mappingsTabs.SelectedTab.Text][idx + 1];
-                lbMappingsDict[mappingsTabs.SelectedTab.Text].SelectedItem = m;
-            }
-        }
-
-        private bool MaskMapped = false;
         private void tbUnmapped_Click(object sender, EventArgs e)
         {
             tbUnmapped.Checked = true;
             tbSelection.Checked = false;
-            MaskMapped = true;
             createSelPBs(true);
         }
 
@@ -398,7 +197,6 @@ namespace ProvinceMapper
         {
             tbSelection.Checked = true;
             tbUnmapped.Checked = false;
-            MaskMapped = false;
             createSelPBs(true);
         }
 
@@ -434,57 +232,6 @@ namespace ProvinceMapper
             g.Flush();
 
             createSelPBs(true);
-        }
-
-        private void Form1_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.F2)
-            {
-                // change comment text
-                CommentMapping cm = lbMappingsDict[mappingsTabs.SelectedTab.Text].SelectedItem as CommentMapping;
-                if (cm != null)
-                {
-                    CommentForm cf = new CommentForm();
-                    cf.SetComment(cm);
-                    cf.ShowDialog();
-                }
-                lbMappingsDict[mappingsTabs.SelectedTab.Text].Items[lbMappingsDict[mappingsTabs.SelectedTab.Text].SelectedIndex] = cm;
-            }
-            else if (e.KeyCode == Keys.F3)
-            {
-                // create new comment
-                if (lbMappingsDict[mappingsTabs.SelectedTab.Text].SelectedIndex >= 0)
-                    CreateNewMapping(true, lbMappingsDict[mappingsTabs.SelectedTab.Text].SelectedIndex);
-                else
-                    CreateNewMapping(true, lbMappingsDict[mappingsTabs.SelectedTab.Text].Items.Count - 2);
-            }
-            else if (e.KeyCode == Keys.F4)
-            {
-                // create new mapping
-                if (lbMappingsDict[mappingsTabs.SelectedTab.Text].SelectedIndex >= 0)
-                    CreateNewMapping(false, lbMappingsDict[mappingsTabs.SelectedTab.Text].SelectedIndex);
-                else
-                    CreateNewMapping(false, lbMappingsDict[mappingsTabs.SelectedTab.Text].Items.Count - 2);
-            }
-            else if ((e.KeyCode == Keys.F5) || (e.KeyCode == Keys.Delete))
-            {
-                if (lbMappingsDict[mappingsTabs.SelectedTab.Text].Items.Count >= 0)
-                {
-                    Program.mappings.mappings[mappingsTabs.SelectedTab.Text].Remove(lbMappingsDict[mappingsTabs.SelectedTab.Text].SelectedItem as Mapping);
-                    lbMappingsDict[mappingsTabs.SelectedTab.Text].Items.Remove(lbMappingsDict[mappingsTabs.SelectedTab.Text].SelectedItem);
-                }
-            }
-            else if (e.Control)
-            {
-                if (e.KeyCode == Keys.Oemplus)
-                {
-                    tbMoveUp_Click(sender, e);
-                }
-                else if (e.KeyCode == Keys.OemMinus)
-                {
-                    tbMoveDown_Click(sender, e);
-                }
-            }
         }
     }
 }

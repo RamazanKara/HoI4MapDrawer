@@ -40,6 +40,5 @@ namespace ProvinceMapper
         static public DefinitionReader targetDef;
         static public MapReader sourceMap;
         static public MapReader targetMap;
-        static public MappingReader mappings;
     }
 }
