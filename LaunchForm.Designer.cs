@@ -30,12 +30,8 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.tbSourceMapFolder = new System.Windows.Forms.TextBox();
-            this.tbDestMapFolder = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.tbSourceTag = new System.Windows.Forms.TextBox();
-            this.tbDestTag = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.btnBegin = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
@@ -46,7 +42,6 @@
             this.label6 = new System.Windows.Forms.Label();
             this.cbNamesFrom = new System.Windows.Forms.ComboBox();
             this.ckInvertSource = new System.Windows.Forms.CheckBox();
-            this.ckInvertDest = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // label1
@@ -66,27 +61,10 @@
             this.tbSourceMapFolder.TabIndex = 1;
             this.tbSourceMapFolder.Text = "D:\\Europa Universalis III\\map";
             // 
-            // tbDestMapFolder
-            // 
-            this.tbDestMapFolder.Location = new System.Drawing.Point(116, 35);
-            this.tbDestMapFolder.Name = "tbDestMapFolder";
-            this.tbDestMapFolder.Size = new System.Drawing.Size(156, 20);
-            this.tbDestMapFolder.TabIndex = 3;
-            this.tbDestMapFolder.Text = "D:\\Victoria 2\\map";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 38);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(94, 13);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Target Map Folder";
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(13, 65);
+            this.label3.Location = new System.Drawing.Point(13, 38);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(63, 13);
             this.label3.TabIndex = 4;
@@ -94,33 +72,16 @@
             // 
             // tbSourceTag
             // 
-            this.tbSourceTag.Location = new System.Drawing.Point(116, 62);
+            this.tbSourceTag.Location = new System.Drawing.Point(116, 35);
             this.tbSourceTag.Name = "tbSourceTag";
             this.tbSourceTag.Size = new System.Drawing.Size(100, 20);
             this.tbSourceTag.TabIndex = 5;
             this.tbSourceTag.Text = "eu3";
             // 
-            // tbDestTag
-            // 
-            this.tbDestTag.Location = new System.Drawing.Point(116, 88);
-            this.tbDestTag.Name = "tbDestTag";
-            this.tbDestTag.Size = new System.Drawing.Size(100, 20);
-            this.tbDestTag.TabIndex = 7;
-            this.tbDestTag.Text = "vic";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(13, 91);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(60, 13);
-            this.label4.TabIndex = 6;
-            this.label4.Text = "Target Tag";
-            // 
             // btnBegin
             // 
             this.btnBegin.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnBegin.Location = new System.Drawing.Point(265, 220);
+            this.btnBegin.Location = new System.Drawing.Point(265, 169);
             this.btnBegin.Name = "btnBegin";
             this.btnBegin.Size = new System.Drawing.Size(61, 23);
             this.btnBegin.TabIndex = 8;
@@ -131,7 +92,7 @@
             // btnExit
             // 
             this.btnExit.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnExit.Location = new System.Drawing.Point(12, 220);
+            this.btnExit.Location = new System.Drawing.Point(12, 169);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(61, 23);
             this.btnExit.TabIndex = 9;
@@ -142,7 +103,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(13, 117);
+            this.label5.Location = new System.Drawing.Point(13, 66);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(92, 13);
             this.label5.TabIndex = 10;
@@ -150,7 +111,7 @@
             // 
             // tbMappingsFile
             // 
-            this.tbMappingsFile.Location = new System.Drawing.Point(116, 114);
+            this.tbMappingsFile.Location = new System.Drawing.Point(116, 63);
             this.tbMappingsFile.Name = "tbMappingsFile";
             this.tbMappingsFile.Size = new System.Drawing.Size(156, 20);
             this.tbMappingsFile.TabIndex = 11;
@@ -158,7 +119,7 @@
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(12, 191);
+            this.progressBar1.Location = new System.Drawing.Point(12, 140);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(314, 23);
             this.progressBar1.TabIndex = 12;
@@ -166,7 +127,7 @@
             // lblStatus
             // 
             this.lblStatus.AutoSize = true;
-            this.lblStatus.Location = new System.Drawing.Point(79, 225);
+            this.lblStatus.Location = new System.Drawing.Point(79, 174);
             this.lblStatus.Name = "lblStatus";
             this.lblStatus.Size = new System.Drawing.Size(47, 13);
             this.lblStatus.TabIndex = 13;
@@ -177,7 +138,7 @@
             this.cbScale.AutoSize = true;
             this.cbScale.Checked = true;
             this.cbScale.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbScale.Location = new System.Drawing.Point(12, 166);
+            this.cbScale.Location = new System.Drawing.Point(12, 115);
             this.cbScale.Name = "cbScale";
             this.cbScale.Size = new System.Drawing.Size(116, 17);
             this.cbScale.TabIndex = 14;
@@ -187,7 +148,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(13, 143);
+            this.label6.Location = new System.Drawing.Point(13, 92);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(91, 13);
             this.label6.TabIndex = 15;
@@ -200,7 +161,7 @@
             this.cbNamesFrom.Items.AddRange(new object[] {
             "Localization",
             "Map data"});
-            this.cbNamesFrom.Location = new System.Drawing.Point(116, 140);
+            this.cbNamesFrom.Location = new System.Drawing.Point(116, 89);
             this.cbNamesFrom.Name = "cbNamesFrom";
             this.cbNamesFrom.Size = new System.Drawing.Size(121, 21);
             this.cbNamesFrom.TabIndex = 16;
@@ -217,24 +178,11 @@
             this.ckInvertSource.Text = "Invert";
             this.ckInvertSource.UseVisualStyleBackColor = true;
             // 
-            // ckInvertDest
-            // 
-            this.ckInvertDest.AutoSize = true;
-            this.ckInvertDest.Checked = true;
-            this.ckInvertDest.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.ckInvertDest.Location = new System.Drawing.Point(278, 37);
-            this.ckInvertDest.Name = "ckInvertDest";
-            this.ckInvertDest.Size = new System.Drawing.Size(53, 17);
-            this.ckInvertDest.TabIndex = 18;
-            this.ckInvertDest.Text = "Invert";
-            this.ckInvertDest.UseVisualStyleBackColor = true;
-            // 
             // LaunchForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(338, 256);
-            this.Controls.Add(this.ckInvertDest);
+            this.ClientSize = new System.Drawing.Size(338, 199);
             this.Controls.Add(this.ckInvertSource);
             this.Controls.Add(this.cbNamesFrom);
             this.Controls.Add(this.label6);
@@ -245,12 +193,8 @@
             this.Controls.Add(this.label5);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.btnBegin);
-            this.Controls.Add(this.tbDestTag);
-            this.Controls.Add(this.label4);
             this.Controls.Add(this.tbSourceTag);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.tbDestMapFolder);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.tbSourceMapFolder);
             this.Controls.Add(this.label1);
             this.Name = "LaunchForm";
@@ -264,12 +208,8 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox tbSourceMapFolder;
-        private System.Windows.Forms.TextBox tbDestMapFolder;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox tbSourceTag;
-        private System.Windows.Forms.TextBox tbDestTag;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnBegin;
         private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.Label label5;
@@ -280,7 +220,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox cbNamesFrom;
         private System.Windows.Forms.CheckBox ckInvertSource;
-        private System.Windows.Forms.CheckBox ckInvertDest;
     }
 }
 

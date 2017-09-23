@@ -17,10 +17,8 @@ namespace ProvinceMapper
         }
 
         private Bitmap bmpSrc;
-        private Bitmap bmpDest;
 
         private SortedList<int, Province> srcChroma;
-        private SortedList<int, Province> destChroma;
 
         private float scaleFactor = 1.0f;
 
@@ -30,12 +28,6 @@ namespace ProvinceMapper
             foreach (Province p in Program.sourceDef.provinces)
             {
                 srcChroma.Add(p.rgb.ToArgb(), p);
-            }
-
-            destChroma = new SortedList<int, Province>();
-            foreach (Province p in Program.targetDef.provinces)
-            {
-                destChroma.Add(p.rgb.ToArgb(), p);
             }
 
             // force rescale/redraw
@@ -59,36 +51,10 @@ namespace ProvinceMapper
             }
         }
 
-        private Point destPt;
-        private void pbTarget_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (e.X != destPt.X || e.Y != destPt.Y)
-            {
-                destPt.X = e.X;
-                destPt.Y = e.Y;
-                Color c = bmpDest.GetPixel(destPt.X, destPt.Y);
-                Province p = null;
-                if (destChroma.TryGetValue(c.ToArgb(), out p))
-                {
-                    toolTip1.Show(p.ToString(), pbTarget, new Point(destPt.X, destPt.Y - 20));
-                    StatusLabel.Text = p.ToString();
-                }
-            }
-        }
-
         private List<Province> oldSrcSelection = new List<Province>();
         private List<Province> srcSelection = new List<Province>();
 
-        private List<Province> oldDestSelection = new List<Province>();
-        private List<Province> destSelection = new List<Province>();
-
         private void pbSource_MouseLeave(object sender, EventArgs e)
-        {
-            toolTip1.RemoveAll();
-            StatusLabel.Text = String.Empty;
-        }
-
-        private void pbTarget_MouseLeave(object sender, EventArgs e)
         {
             toolTip1.RemoveAll();
             StatusLabel.Text = String.Empty;
@@ -97,7 +63,6 @@ namespace ProvinceMapper
         private void createSelPBs(bool force)
         {
             createSelPBs(force, srcSelection, oldSrcSelection, srcChroma.Values, pbSource);
-            createSelPBs(force, destSelection, oldDestSelection, destChroma.Values, pbTarget);
         }
 
         private void createSelPBs(bool force, List<Province> newSelection, List<Province> oldSelection, IList<Province> provinces, PictureBox pb)
@@ -151,7 +116,6 @@ namespace ProvinceMapper
         private void lbMappings_SelectedIndexChanged(object sender, EventArgs e)
         {
             srcSelection.Clear();
-            destSelection.Clear();
 
             if (!skipSelPBRedraw)
                 createSelPBs(false);
@@ -167,22 +131,9 @@ namespace ProvinceMapper
                     srcFit = Rectangle.Union(srcFit, Program.ScaleRect(p.Rect, scaleFactor));
                 }
                 Point fitCenter = new Point(srcFit.X + srcFit.Width / 2, srcFit.Y + srcFit.Height / 2);
-                Point panelCenter = new Point(HorizontalSplit.Panel1.Width / 2, HorizontalSplit.Panel1.Height / 2);
-                Point offset = new Point(fitCenter.X - panelCenter.X, fitCenter.Y - panelCenter.Y);
-                HorizontalSplit.Panel1.AutoScrollPosition = offset;
-            }
-
-            if (destSelection.Count > 0)
-            {
-                Rectangle destFit = Program.ScaleRect(destSelection[0].Rect, scaleFactor);
-                foreach (Province p in destSelection)
-                {
-                    destFit = Rectangle.Union(destFit, Program.ScaleRect(p.Rect, scaleFactor));
-                }
-                Point fitCenter = new Point(destFit.X + destFit.Width / 2, destFit.Y + destFit.Height / 2);
-                Point panelCenter = new Point(HorizontalSplit.Panel1.Width / 2, HorizontalSplit.Panel1.Height / 2);
-                Point offset = new Point(fitCenter.X - panelCenter.X, fitCenter.Y - panelCenter.Y);
-                HorizontalSplit.Panel2.AutoScrollPosition = offset;
+                //Point panelCenter = new Point(HorizontalSplit.Panel1.Width / 2, HorizontalSplit.Panel1.Height / 2);
+                //Point offset = new Point(fitCenter.X - panelCenter.X, fitCenter.Y - panelCenter.Y);
+                //HorizontalSplit.Panel1.AutoScrollPosition = offset;
             }
         }
 
@@ -216,19 +167,6 @@ namespace ProvinceMapper
             pbSource.Image = new Bitmap(bmpSrc.Width, bmpSrc.Height);
             Graphics g = Graphics.FromImage(pbSource.Image);
             g.FillRectangle(Brushes.Transparent, new Rectangle(new Point(0, 0), bmpSrc.Size));
-            g.Flush();
-
-            if (pbTarget.BackgroundImage != null)
-                pbTarget.BackgroundImage.Dispose();
-            if (pbTarget.Image != null)
-                pbTarget.Image.Dispose();
-
-            pbTarget.BackgroundImage = bmpDest = Program.CleanResizeBitmap(Program.targetMap.map,
-                (int)(Program.targetMap.map.Width * scaleFactor), (int)(Program.targetMap.map.Height * scaleFactor));
-            pbTarget.Size = bmpDest.Size;
-            pbTarget.Image = new Bitmap(bmpDest.Width, bmpDest.Height);
-            g = Graphics.FromImage(pbTarget.Image);
-            g.FillRectangle(Brushes.Transparent, new Rectangle(new Point(0, 0), bmpDest.Size));
             g.Flush();
 
             createSelPBs(true);

@@ -39,9 +39,7 @@
             this.tbFitSelection = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.cbZoom = new System.Windows.Forms.ToolStripComboBox();
-            this.HorizontalSplit = new System.Windows.Forms.SplitContainer();
             this.pbSource = new System.Windows.Forms.PictureBox();
-            this.pbTarget = new System.Windows.Forms.PictureBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.StatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
@@ -50,12 +48,7 @@
             this.VerticalSplit.Panel2.SuspendLayout();
             this.VerticalSplit.SuspendLayout();
             this.toolStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.HorizontalSplit)).BeginInit();
-            this.HorizontalSplit.Panel1.SuspendLayout();
-            this.HorizontalSplit.Panel2.SuspendLayout();
-            this.HorizontalSplit.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbTarget)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -72,10 +65,11 @@
             // 
             // VerticalSplit.Panel2
             // 
-            this.VerticalSplit.Panel2.Controls.Add(this.HorizontalSplit);
+            this.VerticalSplit.Panel2.Controls.Add(this.pbSource);
             this.VerticalSplit.Size = new System.Drawing.Size(705, 467);
             this.VerticalSplit.SplitterDistance = 235;
             this.VerticalSplit.TabIndex = 0;
+            this.VerticalSplit.Panel2.AutoScroll = true;
             // 
             // toolStrip1
             // 
@@ -154,26 +148,6 @@
             this.cbZoom.ToolTipText = "Zoom Factor";
             this.cbZoom.SelectedIndexChanged += new System.EventHandler(this.cbZoom_SelectedIndexChanged);
             // 
-            // HorizontalSplit
-            // 
-            this.HorizontalSplit.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.HorizontalSplit.Location = new System.Drawing.Point(0, 0);
-            this.HorizontalSplit.Name = "HorizontalSplit";
-            this.HorizontalSplit.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // HorizontalSplit.Panel1
-            // 
-            this.HorizontalSplit.Panel1.AutoScroll = true;
-            this.HorizontalSplit.Panel1.Controls.Add(this.pbSource);
-            // 
-            // HorizontalSplit.Panel2
-            // 
-            this.HorizontalSplit.Panel2.AutoScroll = true;
-            this.HorizontalSplit.Panel2.Controls.Add(this.pbTarget);
-            this.HorizontalSplit.Size = new System.Drawing.Size(466, 467);
-            this.HorizontalSplit.SplitterDistance = 211;
-            this.HorizontalSplit.TabIndex = 0;
-            // 
             // pbSource
             // 
             this.pbSource.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
@@ -184,17 +158,6 @@
             this.pbSource.TabStop = false;
             this.pbSource.MouseLeave += new System.EventHandler(this.pbSource_MouseLeave);
             this.pbSource.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbSource_MouseMove);
-            // 
-            // pbTarget
-            // 
-            this.pbTarget.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.pbTarget.Location = new System.Drawing.Point(0, 0);
-            this.pbTarget.Name = "pbTarget";
-            this.pbTarget.Size = new System.Drawing.Size(100, 50);
-            this.pbTarget.TabIndex = 1;
-            this.pbTarget.TabStop = false;
-            this.pbTarget.MouseLeave += new System.EventHandler(this.pbTarget_MouseLeave);
-            this.pbTarget.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbTarget_MouseMove);
             // 
             // toolTip1
             // 
@@ -238,12 +201,7 @@
             this.VerticalSplit.ResumeLayout(false);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
-            this.HorizontalSplit.Panel1.ResumeLayout(false);
-            this.HorizontalSplit.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.HorizontalSplit)).EndInit();
-            this.HorizontalSplit.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbTarget)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -253,9 +211,7 @@
         #endregion
 
         private System.Windows.Forms.SplitContainer VerticalSplit;
-        private System.Windows.Forms.SplitContainer HorizontalSplit;
         private System.Windows.Forms.PictureBox pbSource;
-        private System.Windows.Forms.PictureBox pbTarget;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton tbSelection;
         private System.Windows.Forms.ToolStripButton tbUnmapped;

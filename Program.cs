@@ -37,8 +37,6 @@ namespace ProvinceMapper
         }
 
         static public DefinitionReader sourceDef;
-        static public DefinitionReader targetDef;
         static public MapReader sourceMap;
-        static public MapReader targetMap;
     }
 }
