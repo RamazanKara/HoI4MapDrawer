@@ -44,7 +44,7 @@ namespace ProvinceMapper
             // add geo data to province lists
             lblStatus.Text = "Load Source Map";
             Application.DoEvents();
-            Program.sourceMap = new MapReader(srcMap, Program.sourceDef.provinces, true, PushStatusUpdate);
+            Program.sourceMap = new MapReader(srcMap, Program.sourceDef.provinces, PushStatusUpdate);
 
             // save settings
             Properties.Settings.Default.srcMapFolder = tbSourceMapFolder.Text;

@@ -9,7 +9,7 @@ namespace ProvinceMapper
 {
     class MapReader
     {
-        public MapReader(Bitmap _map, List<Province> provinces, bool invert, StatusUpdate su)
+        public MapReader(Bitmap _map, List<Province> provinces, StatusUpdate su)
         {
             su(0.0);
 
@@ -22,10 +22,6 @@ namespace ProvinceMapper
             map = _map;
 
             bounds = new Rectangle(Point.Empty, map.Size);
-            if (invert)
-            {
-                map.RotateFlip(RotateFlipType.RotateNoneFlipY);
-            }
             UnsafeBitmap bmp = new UnsafeBitmap(map);
             bmp.LockBitmap();
 
