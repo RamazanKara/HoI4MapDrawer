@@ -29,29 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.StatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.pbSource = new System.Windows.Forms.PictureBox();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbSource)).BeginInit();
             this.SuspendLayout();
-            // 
-            // statusStrip1
-            // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.StatusLabel});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 445);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(235, 22);
-            this.statusStrip1.TabIndex = 3;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
-            // StatusLabel
-            // 
-            this.StatusLabel.Name = "StatusLabel";
-            this.StatusLabel.Size = new System.Drawing.Size(118, 17);
-            this.StatusLabel.Text = "toolStripStatusLabel1";
             // 
             // pbSource
             // 
@@ -61,17 +41,6 @@
             this.pbSource.Size = new System.Drawing.Size(100, 50);
             this.pbSource.TabIndex = 0;
             this.pbSource.TabStop = false;
-            this.pbSource.MouseLeave += new System.EventHandler(this.pbSource_MouseLeave);
-            this.pbSource.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbSource_MouseMove);
-            // 
-            // toolTip1
-            // 
-            this.toolTip1.AutoPopDelay = 30000;
-            this.toolTip1.InitialDelay = 1;
-            this.toolTip1.ReshowDelay = 1;
-            this.toolTip1.ShowAlways = true;
-            this.toolTip1.UseAnimation = false;
-            this.toolTip1.UseFading = false;
             // 
             // Form1
             // 
@@ -80,13 +49,10 @@
             this.ClientSize = new System.Drawing.Size(705, 467);
             this.AutoScroll = true;
             this.Controls.Add(this.pbSource);
-            this.Controls.Add(this.statusStrip1);
             this.KeyPreview = true;
             this.Name = "Form1";
             this.Text = "Province Mapper";
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbSource)).EndInit();
             this.ResumeLayout(false);
 
@@ -95,9 +61,6 @@
         #endregion
 
         private System.Windows.Forms.PictureBox pbSource;
-        private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.ToolStripStatusLabel StatusLabel;
     }
 }
 

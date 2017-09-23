@@ -46,31 +46,8 @@ namespace ProvinceMapper
             createSelPBs(true);
         }
 
-        private Point srcPt;
-        private void pbSource_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (e.X != srcPt.X || e.Y != srcPt.Y)
-            {
-                srcPt.X = e.X;
-                srcPt.Y = e.Y;
-                Color c = bmpSrc.GetPixel(srcPt.X, srcPt.Y);
-                Province p = null;
-                if (srcChroma.TryGetValue(c.ToArgb(), out p))
-                {
-                    toolTip1.Show(p.ToString(), pbSource, new Point(srcPt.X, srcPt.Y - 20));
-                    StatusLabel.Text = p.ToString();
-                }
-            }
-        }
-
         private List<Province> oldSrcSelection = new List<Province>();
         private List<Province> srcSelection = new List<Province>();
-
-        private void pbSource_MouseLeave(object sender, EventArgs e)
-        {
-            toolTip1.RemoveAll();
-            StatusLabel.Text = String.Empty;
-        }
 
         private void createSelPBs(bool force)
         {
