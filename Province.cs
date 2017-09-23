@@ -12,7 +12,6 @@ namespace ProvinceMapper
         public int ID;
         public Color rgb;
         public string name;
-        public Dictionary<string, Mapping> mappings;
 
         public Province(string[] row)
         {
@@ -22,8 +21,6 @@ namespace ProvinceMapper
                 name = row[4];
             else
                 name = String.Format("Unnamed {0}", ID);
-
-            mappings = new Dictionary<string, Mapping>();
         }
 
         public override string ToString()
