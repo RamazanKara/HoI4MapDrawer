@@ -29,20 +29,25 @@ namespace ProvinceMapper
             lblStatus.Text = "Load Country Colors";
             Application.DoEvents();
 				CountryReader countries = new CountryReader(tbSourceMapFolder.Text);
-				PushStatusUpdate(25.0);
+				PushStatusUpdate(20.0);
+
+				lblStatus.Text = "Import Save";
+				Application.DoEvents();
+				SaveReader save = new SaveReader(tbSaveLocation.Text);
+				PushStatusUpdate(40.0);
 
 				lblStatus.Text = "Load Source Definitions";
 				Application.DoEvents();
 				string sourceDefPath = Path.Combine(tbSourceMapFolder.Text, "map\\Definition.csv");
             Program.sourceDef = new DefinitionReader(sourceDefPath, PushStatusUpdate);
-            PushStatusUpdate(50.0);
+            PushStatusUpdate(60.0);
 
             // pre-scale maps
             lblStatus.Text = "Scale Maps";
             Application.DoEvents();
             string sourceMapPath = Path.Combine(tbSourceMapFolder.Text, "map\\Provinces.bmp");
             Bitmap srcMap = (Bitmap)Bitmap.FromFile(sourceMapPath);
-            PushStatusUpdate(75.0);
+            PushStatusUpdate(80.0);
             srcMap.Tag = sourceMapPath;
 
             // add geo data to province lists
