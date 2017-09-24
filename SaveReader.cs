@@ -8,7 +8,7 @@ namespace ProvinceMapper
 {
 	class SaveReader
 	{
-		public SaveReader(string saveName)
+		public SaveReader(string saveName, string HoI4Location)
 		{
 			StreamReader theSave = new StreamReader(saveName);
 			while (!theSave.EndOfStream)
@@ -20,6 +20,17 @@ namespace ProvinceMapper
 				}
 			}
 			theSave.Close();
+
+			provinceOwners = new Dictionary<int, string>();
+			StateReader states = new StateReader(HoI4Location);
+			foreach (KeyValuePair<int, string> state in stateOwners)
+			{
+				List<int> provinces = states.stateToProvinces[state.Key];
+				foreach (int province in provinces)
+				{
+					provinceOwners.Add(province, state.Value);
+				}
+			}
 		}
 
 		private void readStates(StreamReader theSave)
@@ -73,5 +84,6 @@ namespace ProvinceMapper
 		}
 
 		private Dictionary<int, string> stateOwners;
+		public Dictionary<int, string> provinceOwners;
 	}
 }

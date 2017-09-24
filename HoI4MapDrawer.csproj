@@ -101,6 +101,7 @@
     </Compile>
     <Compile Include="Province.cs" />
     <Compile Include="SaveReader.cs" />
+    <Compile Include="StateReader.cs" />
     <Compile Include="UnsafeBitmap.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

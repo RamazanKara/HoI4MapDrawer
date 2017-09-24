@@ -33,7 +33,7 @@ namespace ProvinceMapper
 
 				lblStatus.Text = "Import Save";
 				Application.DoEvents();
-				SaveReader save = new SaveReader(tbSaveLocation.Text);
+				SaveReader save = new SaveReader(tbSaveLocation.Text, tbSourceMapFolder.Text);
 				PushStatusUpdate(40.0);
 
 				lblStatus.Text = "Load Source Definitions";
