@@ -10,23 +10,24 @@ namespace ProvinceMapper
     class Province
     {
         public int ID;
-        public Color rgb;
-        public string name;
+        public Color definitionColor;
+		  public Color ownerColor;
+        public string type;
 
         public Province(string[] row)
         {
             ID = int.Parse(row[0]);
-            rgb = Color.FromArgb((int)double.Parse(row[1]), (int)double.Parse(row[2]), (int)double.Parse(row[3]));
-            if (row.Count() > 4)
-                name = row[4];
-            else
-                name = String.Format("Unnamed {0}", ID);
-        }
-
-        public override string ToString()
-        {
-            return ID.ToString() + " - " + name;
-        }
+				definitionColor = Color.FromArgb((int)double.Parse(row[1]), (int)double.Parse(row[2]), (int)double.Parse(row[3]));
+				type = row[4];
+				if (type != "land")
+				{
+					ownerColor = Color.FromArgb(0, 255, 255, 255);
+				}
+				else
+				{
+					ownerColor = Color.FromArgb(0, 0, 0, 0);
+				}
+			}
 
         public List<Point> area = new List<Point>();
 
@@ -80,7 +81,7 @@ namespace ProvinceMapper
 #if (true)
                     UnsafeBitmap bmp = new UnsafeBitmap(m_selmask);
                     bmp.LockBitmap();
-                    Pixel stripe = new Pixel { alpha = 0xff, red = (byte)(rgb.R ^ 0xff), blue = (byte)(rgb.B ^ 0xff), green = (byte)(rgb.G ^ 0xff) };
+                    Pixel stripe = new Pixel { alpha = 0xff, red = (byte)(definitionColor.R ^ 0xff), blue = (byte)(definitionColor.B ^ 0xff), green = (byte)(definitionColor.G ^ 0xff) };
                     foreach (Point p in area)
                     {
                         int index = Math.Abs(p.X + p.Y) % 8; // range 0 to 7, offset by 1 pixel per scanline
@@ -120,7 +121,7 @@ namespace ProvinceMapper
                     UnsafeBitmap bmp = new UnsafeBitmap(m_blackmask);
                     bmp.LockBitmap();
                     Pixel black = new Pixel { alpha = 0xff, red = 0x0, blue = 0x0, green = 0x0 };
-                    Pixel province = new Pixel { alpha = 0xff, red = rgb.R, blue = rgb.B, green = rgb.G };
+                    Pixel province = new Pixel { alpha = 0xff, red = definitionColor.R, blue = definitionColor.B, green = definitionColor.G };
                     foreach (Point p in area)
                     {
                         bmp.SetPixel(p.X - Rect.X, p.Y - Rect.Y, black);
