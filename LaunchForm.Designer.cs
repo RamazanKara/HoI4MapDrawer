@@ -55,7 +55,7 @@
             this.tbSourceMapFolder.Name = "tbSourceMapFolder";
             this.tbSourceMapFolder.Size = new System.Drawing.Size(546, 20);
             this.tbSourceMapFolder.TabIndex = 1;
-            this.tbSourceMapFolder.Text = "D:\\SteamLibrary\\SteamApps\\common\\Hearts of Iron IV\\map";
+            this.tbSourceMapFolder.Text = "D:\\SteamLibrary\\SteamApps\\common\\Hearts of Iron IV";
             // 
             // btnBegin
             // 

@@ -24,27 +24,32 @@ namespace ProvinceMapper
 
         private void button1_Click(object sender, EventArgs e)
         {
-            // read definitions and create province lists
-            lblStatus.Text = "Load Source Definitions";
+            PushStatusUpdate(0.0);
+
+            lblStatus.Text = "Load Country Colors";
             Application.DoEvents();
-            string sourceDefPath = Path.Combine(tbSourceMapFolder.Text, "Definition.csv");
+				CountryReader countries = new CountryReader(tbSourceMapFolder.Text);
+				PushStatusUpdate(25.0);
+
+				lblStatus.Text = "Load Source Definitions";
+				Application.DoEvents();
+				string sourceDefPath = Path.Combine(tbSourceMapFolder.Text, "map\\Definition.csv");
             Program.sourceDef = new DefinitionReader(sourceDefPath, PushStatusUpdate);
+            PushStatusUpdate(50.0);
 
             // pre-scale maps
             lblStatus.Text = "Scale Maps";
-            PushStatusUpdate(0.0);
             Application.DoEvents();
-            string sourceMapPath = Path.Combine(tbSourceMapFolder.Text, "Provinces.bmp");
+            string sourceMapPath = Path.Combine(tbSourceMapFolder.Text, "map\\Provinces.bmp");
             Bitmap srcMap = (Bitmap)Bitmap.FromFile(sourceMapPath);
-            PushStatusUpdate(33.0);
-            PushStatusUpdate(67.0);
-            PushStatusUpdate(100.0);
+            PushStatusUpdate(75.0);
             srcMap.Tag = sourceMapPath;
 
             // add geo data to province lists
             lblStatus.Text = "Load Source Map";
             Application.DoEvents();
             Program.sourceMap = new MapReader(srcMap, Program.sourceDef.provinces, PushStatusUpdate);
+            PushStatusUpdate(100.0);
 
             // save settings
             Properties.Settings.Default.srcMapFolder = tbSourceMapFolder.Text;
