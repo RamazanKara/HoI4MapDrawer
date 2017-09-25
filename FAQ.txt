@@ -1,0 +1,8 @@
+Q: I got the error "Save is binary. See FAQ for solution". What's the solution?
+A:
+	1. Go to your HoI4 documents directory (C:\Users\<your name>\Documents\Paradox Interactive\Hearts of Iron IV).
+	2. Open settings.txt.
+	3. Find the line "save_as_binary=yes" and change the yes to no.
+	4. Save the file and close it.
+	5. Launch HoI4, load your save, and save again.
+	6. This new save can be used by the tool.
