@@ -54,7 +54,8 @@ namespace ProvinceMapper
             lblStatus.Text = "Load Source Map";
             Application.DoEvents();
             Program.sourceMap = new MapReader(srcMap, Program.sourceDef.provinces, PushStatusUpdate, save.provinceOwners, countries.countries);
-            PushStatusUpdate(100.0);
+				Program.sourceMap.saveMap(tbSaveLocation.Text);
+				PushStatusUpdate(100.0);
 
             // save settings
             Properties.Settings.Default.srcMapFolder = tbSourceMapFolder.Text;

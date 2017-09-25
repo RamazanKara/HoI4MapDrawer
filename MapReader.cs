@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
 
 namespace ProvinceMapper
 {
@@ -51,6 +52,29 @@ namespace ProvinceMapper
                 su(100.0 * x / map.Width);
             }
         }
+
+		  public void saveMap(string saveName)
+			{
+				int backslashPos = saveName.LastIndexOf("\\");
+				saveName = saveName.Substring(backslashPos + 1);
+				int slashPos = saveName.LastIndexOf("/");
+				saveName = saveName.Substring(slashPos + 1);
+				int dotPos = saveName.LastIndexOf(".");
+				saveName = saveName.Substring(0, dotPos);
+
+				if (File.Exists(saveName + ".png"))
+				{
+					saveName += '-';
+					int suffix = 1;
+					while (File.Exists(saveName + suffix.ToString() + ".png"))
+					{
+						suffix++;
+					}
+					saveName += suffix.ToString();
+				}
+
+				map.Save(saveName + ".png", ImageFormat.Png);
+			}
 
         public Bitmap map;
         public Rectangle bounds;
