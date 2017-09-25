@@ -62,7 +62,6 @@
 			// btnBegin
 			// 
 			this.btnBegin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnBegin.DialogResult = System.Windows.Forms.DialogResult.OK;
 			this.btnBegin.Location = new System.Drawing.Point(601, 91);
 			this.btnBegin.Name = "btnBegin";
 			this.btnBegin.Size = new System.Drawing.Size(61, 23);
