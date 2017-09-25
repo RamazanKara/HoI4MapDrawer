@@ -36,6 +36,8 @@
 			this.lblStatus = new System.Windows.Forms.Label();
 			this.tbSaveLocation = new System.Windows.Forms.TextBox();
 			this.label2 = new System.Windows.Forms.Label();
+			this.FolderBrowse = new System.Windows.Forms.Button();
+			this.saveBrowse = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
 			// label1
@@ -43,17 +45,17 @@
 			this.label1.AutoSize = true;
 			this.label1.Location = new System.Drawing.Point(13, 12);
 			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(86, 13);
+			this.label1.Size = new System.Drawing.Size(62, 13);
 			this.label1.TabIndex = 0;
-			this.label1.Text = "HoI4 Map Folder";
+			this.label1.Text = "HoI4 Folder";
 			// 
 			// tbSourceMapFolder
 			// 
 			this.tbSourceMapFolder.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.tbSourceMapFolder.Location = new System.Drawing.Point(116, 9);
+			this.tbSourceMapFolder.Location = new System.Drawing.Point(82, 9);
 			this.tbSourceMapFolder.Name = "tbSourceMapFolder";
-			this.tbSourceMapFolder.Size = new System.Drawing.Size(546, 20);
+			this.tbSourceMapFolder.Size = new System.Drawing.Size(462, 20);
 			this.tbSourceMapFolder.TabIndex = 1;
 			this.tbSourceMapFolder.Text = "D:\\SteamLibrary\\SteamApps\\common\\Hearts of Iron IV";
 			// 
@@ -105,9 +107,9 @@
 			// 
 			this.tbSaveLocation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.tbSaveLocation.Location = new System.Drawing.Point(116, 36);
+			this.tbSaveLocation.Location = new System.Drawing.Point(82, 36);
 			this.tbSaveLocation.Name = "tbSaveLocation";
-			this.tbSaveLocation.Size = new System.Drawing.Size(546, 20);
+			this.tbSaveLocation.Size = new System.Drawing.Size(462, 20);
 			this.tbSaveLocation.TabIndex = 15;
 			this.tbSaveLocation.Text = "C:\\Users\\Stephen\\Documents\\Paradox Interactive\\Hearts of Iron IV\\save games";
 			// 
@@ -120,11 +122,33 @@
 			this.label2.TabIndex = 14;
 			this.label2.Text = "HoI4 Save";
 			// 
+			// FolderBrowse
+			// 
+			this.FolderBrowse.Location = new System.Drawing.Point(587, 6);
+			this.FolderBrowse.Name = "FolderBrowse";
+			this.FolderBrowse.Size = new System.Drawing.Size(75, 23);
+			this.FolderBrowse.TabIndex = 16;
+			this.FolderBrowse.Text = "Browse";
+			this.FolderBrowse.UseVisualStyleBackColor = true;
+			this.FolderBrowse.Click += new System.EventHandler(this.FolderBrowse_Click);
+			// 
+			// saveBrowse
+			// 
+			this.saveBrowse.Location = new System.Drawing.Point(587, 36);
+			this.saveBrowse.Name = "saveBrowse";
+			this.saveBrowse.Size = new System.Drawing.Size(75, 23);
+			this.saveBrowse.TabIndex = 17;
+			this.saveBrowse.Text = "Browse";
+			this.saveBrowse.UseVisualStyleBackColor = true;
+			this.saveBrowse.Click += new System.EventHandler(this.saveBrowse_Click);
+			// 
 			// LaunchForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(674, 122);
+			this.Controls.Add(this.saveBrowse);
+			this.Controls.Add(this.FolderBrowse);
 			this.Controls.Add(this.tbSaveLocation);
 			this.Controls.Add(this.label2);
 			this.Controls.Add(this.lblStatus);
@@ -150,6 +174,8 @@
         private System.Windows.Forms.Label lblStatus;
         private System.Windows.Forms.TextBox tbSaveLocation;
         private System.Windows.Forms.Label label2;
-    }
+		private System.Windows.Forms.Button FolderBrowse;
+		private System.Windows.Forms.Button saveBrowse;
+	}
 }
 

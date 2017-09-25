@@ -22,17 +22,5 @@ namespace ProvinceMapper.Properties {
                 return defaultInstance;
             }
         }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("D:\\SteamLibrary\\SteamApps\\common\\Hearts of Iron IV")]
-        public string srcMapFolder {
-            get {
-                return ((string)(this["srcMapFolder"]));
-            }
-            set {
-                this["srcMapFolder"] = value;
-            }
-        }
     }
 }
