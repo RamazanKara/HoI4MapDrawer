@@ -28,6 +28,20 @@ namespace ProvinceMapper
 		{
 			PushStatusUpdate(0.0);
 
+			if (!File.Exists(Path.Combine(tbSourceMapFolder.Text, "hoi4.exe")))
+			{
+				lblStatus.Text = "HoI4 Folder was not a valid HoI4 folder";
+				Application.DoEvents();
+				return;
+			}
+
+			if (!File.Exists(tbSaveLocation.Text))
+			{
+				lblStatus.Text = "HoI4 save does not exist";
+				Application.DoEvents();
+				return;
+			}
+
 			lblStatus.Text = "Load Country Colors";
 			Application.DoEvents();
 			CountryReader countries = new CountryReader(tbSourceMapFolder.Text);
@@ -35,7 +49,17 @@ namespace ProvinceMapper
 
 			lblStatus.Text = "Import Save";
 			Application.DoEvents();
-			SaveReader save = new SaveReader(tbSaveLocation.Text, tbSourceMapFolder.Text);
+			SaveReader save;
+			try
+			{
+				save = new SaveReader(tbSaveLocation.Text, tbSourceMapFolder.Text);
+			}
+			catch
+			{
+				lblStatus.Text = "Save is binary. See FAQ for solution";
+				Application.DoEvents();
+				return;
+			}
 			PushStatusUpdate(40.0);
 
 			lblStatus.Text = "Load Source Definitions";
@@ -58,6 +82,9 @@ namespace ProvinceMapper
 			Program.sourceMap = new MapReader(srcMap, Program.sourceDef.provinces, PushStatusUpdate, save.provinceOwners, countries.countries);
 			Program.sourceMap.saveMap(tbSaveLocation.Text);
 			PushStatusUpdate(100.0);
+
+			lblStatus.Text = "Map Saved";
+			Application.DoEvents();
 		}
 
 		private void btnExit_Click(object sender, EventArgs e)

@@ -14,6 +14,11 @@ namespace ProvinceMapper
 			while (!theSave.EndOfStream)
 			{
 				string line = theSave.ReadLine();
+				if (line.Contains("HOI4bin"))
+				{
+					Exception e = new Exception("binary save");
+					throw e;
+				}
 				if (line == "states={")
 				{
 					readStates(theSave);
