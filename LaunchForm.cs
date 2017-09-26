@@ -22,6 +22,7 @@ namespace ProvinceMapper
 			// load settings
 			tbSourceMapFolder.Text = ReadHoI4Folder();
 			tbSaveLocation.Text = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Paradox Interactive\\Hearts of Iron IV\\save games");
+			modFolder.Text = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Paradox Interactive\\Hearts of Iron IV\\mod");
 		}
 
 		private void button1_Click(object sender, EventArgs e)
@@ -175,5 +176,70 @@ namespace ProvinceMapper
 				tbSaveLocation.Text = dialog.FileName;
 			}
 		}
+
+		private void DocsFolderButton_Click(object sender, EventArgs e)
+		{
+			var dialog = new FolderBrowserDialog();
+
+			if (Directory.Exists(modFolder.Text))
+			{
+				dialog.SelectedPath = modFolder.Text;
+			}
+
+			dialog.ShowNewFolderButton = false;
+			if (dialog.ShowDialog() == DialogResult.OK)
+			{
+				modFolder.Text = dialog.SelectedPath;
+			}
+		}
+
+		private void ModFolderTextChanged(object sender, EventArgs e)
+		{
+		if (Directory.Exists(modFolder.Text))
+			{
+				getMods();
+				if (mods.Count > 0)
+				{
+					this.Height = 196 + 26 + (17 * mods.Count);
+					modsGroup = new GroupBox();
+					modsGroup.SetBounds(13, 90, 649, 21 + (17 * mods.Count));
+					this.Controls.Add(modsGroup);
+
+					for (int i = 0; i < mods.Count; i++)
+					{
+						CheckBox checkBox = new CheckBox();
+						checkBox.SetBounds(13, 13 + 17 * i, 626, 17);
+						checkBox.Text = mods[i];
+						modsGroup.Controls.Add(checkBox);
+					}
+				}
+				else
+				{
+					foreach (System.Windows.Forms.Control control in modsGroup.Controls)
+					{
+						modsGroup.Controls.Remove(control);
+					}
+					this.Controls.Remove(modsGroup);
+					this.Height = 196;
+					if (modsGroup != null)
+					{
+						modsGroup = null; 
+					}
+				}
+			}
+		}
+
+		private void getMods()
+		{
+			mods.Clear();
+			string[] modFiles = Directory.GetFiles(modFolder.Text, "*.mod");
+			foreach (string modFile in modFiles)
+			{
+				mods.Add(modFile);
+			}
+		}
+
+		private GroupBox modsGroup;
+		private List<String> mods = new List<string>();
 	}
 }
