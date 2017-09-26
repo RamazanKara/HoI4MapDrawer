@@ -209,7 +209,7 @@ namespace ProvinceMapper
 					{
 						CheckBox checkBox = new CheckBox();
 						checkBox.SetBounds(13, 13 + 17 * i, 626, 17);
-						checkBox.Text = mods[i];
+						checkBox.Text = mods[i].name;
 						modsGroup.Controls.Add(checkBox);
 					}
 				}
@@ -235,11 +235,12 @@ namespace ProvinceMapper
 			string[] modFiles = Directory.GetFiles(modFolder.Text, "*.mod");
 			foreach (string modFile in modFiles)
 			{
-				mods.Add(modFile);
+				HoI4Mod mod = new HoI4Mod(modFile);
+				mods.Add(mod);
 			}
 		}
 
 		private GroupBox modsGroup;
-		private List<String> mods = new List<string>();
+		private List<HoI4Mod> mods = new List<HoI4Mod>();
 	}
 }

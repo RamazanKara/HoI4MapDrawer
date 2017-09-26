@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="CountryReader.cs" />
     <Compile Include="DefinitionReader.cs" />
+    <Compile Include="HoI4Mod.cs" />
     <Compile Include="LaunchForm.cs">
       <SubType>Form</SubType>
     </Compile>
