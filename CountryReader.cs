@@ -13,7 +13,7 @@ namespace ProvinceMapper
 		public CountryReader(string HoI4Location, List<HoI4Mod> mods)
 		{
 			getCountryFiles(HoI4Location, mods);
-			getCountryColors(HoI4Location);
+			getCountryColors(HoI4Location, mods);
 		}
 
 		private void getCountryFiles(string HoI4Location, List<HoI4Mod> mods)
@@ -51,36 +51,52 @@ namespace ProvinceMapper
 			sr.Close();
 		}
 
-		private void getCountryColors(string HoI4Location)
+		private void getCountryColors(string HoI4Location, List<HoI4Mod> mods)
 		{
 			countries = new Dictionary<String, Color>();
 
 			foreach (KeyValuePair<String, String> countryFile in countryFiles)
 			{
 				string countryFilePath = Path.Combine(HoI4Location, "common", countryFile.Value);
-				StreamReader sr = new StreamReader(countryFilePath);
-				while (!sr.EndOfStream)
+				if (File.Exists(countryFilePath))
 				{
-					string line = sr.ReadLine();
-					if (line.Length == 0)
-					{
-						continue;
-					}
-					else if (line.Substring(0, 1) == "#")
-					{
-						continue;
-					}
-					else if (!line.Contains("color"))
-					{
-						continue;
-					}
-
-					int[] digits = getDigitsfromLine(line);
-					Color countryColor = Color.FromArgb(0, digits[0], digits[1], digits[2]);
-					countries.Add(countryFile.Key, countryColor);
+					getCountryColor(countryFile.Key, countryFilePath);
 				}
-				sr.Close();
+				foreach (HoI4Mod mod in mods)
+				{
+					countryFilePath = Path.Combine(mod.location, "common", countryFile.Value);
+					if (File.Exists(countryFilePath))
+					{
+						getCountryColor(countryFile.Key, countryFilePath);
+					}
+				}
 			}
+		}
+
+		private void getCountryColor(string tag, string location)
+		{
+			StreamReader sr = new StreamReader(location);
+			while (!sr.EndOfStream)
+			{
+				string line = sr.ReadLine();
+				if (line.Length == 0)
+				{
+					continue;
+				}
+				else if (line.Substring(0, 1) == "#")
+				{
+					continue;
+				}
+				else if (!line.Contains("color"))
+				{
+					continue;
+				}
+
+				int[] digits = getDigitsfromLine(line);
+				Color countryColor = Color.FromArgb(0, digits[0], digits[1], digits[2]);
+				countries[tag] = countryColor;
+			}
+			sr.Close();
 		}
 
 		private int[] getDigitsfromLine(string line)
