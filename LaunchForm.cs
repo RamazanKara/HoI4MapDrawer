@@ -235,7 +235,7 @@ namespace ProvinceMapper
 			string[] modFiles = Directory.GetFiles(modFolder.Text, "*.mod");
 			foreach (string modFile in modFiles)
 			{
-				HoI4Mod mod = new HoI4Mod(modFile);
+				HoI4Mod mod = new HoI4Mod(modFile, modFolder.Text);
 				mods.Add(mod);
 			}
 		}
