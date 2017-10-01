@@ -10,27 +10,42 @@ namespace ProvinceMapper
 {
 	class CountryReader
 	{
-		public CountryReader(string HoI4Location)
+		public CountryReader(string HoI4Location, List<HoI4Mod> mods)
 		{
-			getCountryFiles(HoI4Location);
+			getCountryFiles(HoI4Location, mods);
 			getCountryColors(HoI4Location);
 		}
 
-		private void getCountryFiles(string HoI4Location)
+		private void getCountryFiles(string HoI4Location, List<HoI4Mod> mods)
 		{
 			countryFiles = new Dictionary<string, string>();
 			string tagsPath = Path.Combine(HoI4Location, "common\\country_tags\\00_countries.txt");
+			getCountryFilesFromTagsFile(tagsPath);
+			foreach (var mod in mods)
+			{
+				tagsPath = Path.Combine(mod.location, "common\\country_tags\\00_countries.txt");
+				if (File.Exists(tagsPath))
+				{
+					getCountryFilesFromTagsFile(tagsPath);
+				}
+			}
+		}
+
+		private void getCountryFilesFromTagsFile(string tagsPath)
+		{
 			StreamReader sr = new StreamReader(tagsPath);
 			while (!sr.EndOfStream)
 			{
 				string line = sr.ReadLine();
 				line = line.Trim();
-				string tag = line.Substring(0, 3);
-				int firstQuote = line.IndexOf("\"");
-				string file = line.Substring(firstQuote);
-				file = file.Trim('\"');
-
-				countryFiles.Add(tag, file);
+				if (line.Length > 3)
+				{
+					string tag = line.Substring(0, 3);
+					int firstQuote = line.IndexOf("\"");
+					string file = line.Substring(firstQuote);
+					file = file.Trim('\"');
+					countryFiles[tag] = file;
+				}
 			}
 
 			sr.Close();

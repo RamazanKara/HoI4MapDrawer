@@ -43,9 +43,11 @@ namespace ProvinceMapper
 				return;
 			}
 
+			getSelectedMods();
+
 			lblStatus.Text = "Load Country Colors";
 			Application.DoEvents();
-			CountryReader countries = new CountryReader(tbSourceMapFolder.Text);
+			CountryReader countries = new CountryReader(tbSourceMapFolder.Text, selectedMods);
 			PushStatusUpdate(20.0);
 
 			lblStatus.Text = "Import Save";
@@ -86,6 +88,28 @@ namespace ProvinceMapper
 
 			lblStatus.Text = "Map Saved";
 			Application.DoEvents();
+		}
+
+		void getSelectedMods()
+		{
+			selectedMods.Clear();
+			HashSet<String> selectedModNames = new HashSet<string>();
+
+			foreach (CheckBox control in modsGroup.Controls)
+			{
+				if ((control.GetType() == typeof(CheckBox)) && (control.Checked))
+				{
+					selectedModNames.Add(control.Text);
+				}
+			}
+
+			foreach (HoI4Mod mod in mods)
+			{
+				if (selectedModNames.Contains(mod.name))
+				{
+					selectedMods.Add(mod);
+				}
+			}
 		}
 
 		private void btnExit_Click(object sender, EventArgs e)
@@ -195,7 +219,7 @@ namespace ProvinceMapper
 
 		private void ModFolderTextChanged(object sender, EventArgs e)
 		{
-		if (Directory.Exists(modFolder.Text))
+			if (Directory.Exists(modFolder.Text))
 			{
 				getMods();
 				if (mods.Count > 0)
@@ -242,5 +266,6 @@ namespace ProvinceMapper
 
 		private GroupBox modsGroup;
 		private List<HoI4Mod> mods = new List<HoI4Mod>();
+		private List<HoI4Mod> selectedMods = new List<HoI4Mod>();
 	}
 }
