@@ -68,6 +68,14 @@ namespace ProvinceMapper
 			lblStatus.Text = "Load Source Definitions";
 			Application.DoEvents();
 			string sourceDefPath = Path.Combine(tbSourceMapFolder.Text, "map\\Definition.csv");
+			foreach (HoI4Mod mod in selectedMods)
+			{
+				string possibleDefinitions = Path.Combine(mod.location, "map\\Definition.csv");
+				if (File.Exists(possibleDefinitions))
+				{
+					sourceDefPath = possibleDefinitions;
+				}
+			}
 			Program.sourceDef = new DefinitionReader(sourceDefPath, PushStatusUpdate);
 			PushStatusUpdate(60.0);
 
@@ -75,6 +83,14 @@ namespace ProvinceMapper
 			lblStatus.Text = "Scale Maps";
 			Application.DoEvents();
 			string sourceMapPath = Path.Combine(tbSourceMapFolder.Text, "map\\Provinces.bmp");
+			foreach (HoI4Mod mod in selectedMods)
+			{
+				string possibleMap = Path.Combine(mod.location, "map\\Provinces.bmp");
+				if (File.Exists(possibleMap))
+				{
+					sourceMapPath = possibleMap;
+				}
+			}
 			Bitmap srcMap = (Bitmap)Bitmap.FromFile(sourceMapPath);
 			PushStatusUpdate(80.0);
 			srcMap.Tag = sourceMapPath;
