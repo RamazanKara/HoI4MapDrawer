@@ -8,12 +8,25 @@ namespace ProvinceMapper
 {
 	class StateReader
 	{
-		public StateReader(string HoI4Location)
+		public StateReader(string HoI4Location, List<HoI4Mod> mods)
 		{
 			stateToProvinces = new Dictionary<int, List<int>>();
 
 			string statesPath = Path.Combine(HoI4Location, "history\\states");
-			string[] stateFiles = Directory.GetFiles(statesPath);
+			readStatesFromPath(statesPath);
+			foreach (HoI4Mod mod in mods)
+			{
+				statesPath = Path.Combine(mod.location, "history\\states");
+				if (Directory.Exists(statesPath))
+				{
+					readStatesFromPath(statesPath);
+				}
+			}
+		}
+
+		private void readStatesFromPath(string path)
+		{
+			string[] stateFiles = Directory.GetFiles(path);
 			foreach (string stateFile in stateFiles)
 			{
 				int id = -1;
@@ -37,7 +50,7 @@ namespace ProvinceMapper
 
 					if (line.Contains("provinces"))
 					{
-						while(!line.Contains("{"))
+						while (!line.Contains("{"))
 						{
 							line = sr.ReadLine();
 						}
@@ -49,7 +62,7 @@ namespace ProvinceMapper
 				sr.Close();
 				if ((id != -1) && (provinces.Count > 0))
 				{
-					stateToProvinces.Add(id, provinces);
+					stateToProvinces[id] = provinces;
 				}
 			}
 		}

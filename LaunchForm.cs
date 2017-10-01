@@ -55,7 +55,7 @@ namespace ProvinceMapper
 			SaveReader save;
 			try
 			{
-				save = new SaveReader(tbSaveLocation.Text, tbSourceMapFolder.Text);
+				save = new SaveReader(tbSaveLocation.Text, tbSourceMapFolder.Text, selectedMods);
 			}
 			catch
 			{
